@@ -34,7 +34,7 @@
 			</li>
 			<li><a href="#3" data-toggle="tab">Perfil</a>
 			</li>
-			<li><a href="#4" data-toggle="tab">Background color</a>
+			<li><a href="#4" data-toggle="tab">watchlist</a>
 			</li>
 		</ul>
 
@@ -101,8 +101,8 @@
 
 											 <img class="img" src="{{serie.Poster}}" /> 
 											<h3>
-												<button type="button" class="btn btn-info btn-lg"   data-target="#myModal">Watchlist</button>
-												<button type="button" class="btn btn-info btn-lg" ng-click="addSerie(serie)" data-target="#myModal">Perfil</button> 
+												<button type="button" class="btn btn-info btn-lg" ng-click="addSerieWatch(serie)"  data-target="#myModal">Watchlist</button>
+												<button type="button" class="btn btn-info btn-lg" ng-click="addSeriePerfil(serie)" data-target="#myModal">Perfil</button> 
 											</h3>
 
 										</div>
@@ -142,7 +142,16 @@
 
 			</div>
 			<div class="tab-pane" id="4">
-				<h3>We use css to change the background color of the content to be equal to the tab</h3>
+				
+				<div  ng-repeat="serie in watchlist">
+							
+							<h3>{{serie.Title}}</h3>
+							 <img class="img" src="{{serie.Poster}}" /> 
+							<button type="button" class="btn btn-info btn-lg" ng-click="addSeriePerfil(serie)" data-target="#myModal">Perfil</button> 
+						</div>
+
+
+
 			</div>
 		</div>
 	</div>
