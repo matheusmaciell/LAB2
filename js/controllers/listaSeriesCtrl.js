@@ -3,6 +3,7 @@ angular.module("listaSeries").controller("listaSeriesCtrl", function ($scope,$ht
 	$scope.series = [];
 	$scope.minhasSeries = [];
 	$scope.watchlist = [];
+	$scope.idSerieBuscada = [];
 
 	$scope.pesquisarSerie = function(serie){
 		$http.get("https://omdbapi.com/?s=" + serie + "&apikey=93330d3c&type=series").then(function(response) {
@@ -15,16 +16,20 @@ angular.module("listaSeries").controller("listaSeriesCtrl", function ($scope,$ht
 			};
 
 
+	});
+	}	
+
+
+	$scope.buscaInfoSerie = function(key){
+		$http.get("https://omdbapi.com/?i=" + key + "apikey=93330d3c").then(function(response) {
+			console.log(response.data);
+				console.log("ENTROU UI");
+				$scope.idSerieBuscada = response.data;
+
 			
-		}, function() {
+			});
 
-		});
-
-		
-	};
-
-
-
+	}
 
 	$scope.verificaArray = function(serie,array){
 		for (var i = array.length - 1; i >= 0; i--) {
@@ -78,6 +83,7 @@ angular.module("listaSeries").controller("listaSeriesCtrl", function ($scope,$ht
 			}
 		}
 	}	
+
 
 
 });
