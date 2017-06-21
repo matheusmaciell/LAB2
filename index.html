@@ -99,7 +99,7 @@
 										<div  ng-repeat="serie in series">
 											<h3>{{serie.Title}}</h3>
 
-											 <img class="img" src="{{serie.Poster}}" /> 
+											 <img class="imagem" src="{{serie.Poster}}" /> 
 											<h3>
 												<button type="button" class="btn btn-info btn-lg" ng-click="addSerieWatch(serie)"  data-target="#myModal">Watchlist</button>
 												<button type="button" class="btn btn-info btn-lg" ng-click="addSeriePerfil(serie)" data-target="#myModal">Perfil</button> 
@@ -130,7 +130,7 @@
 						<div  ng-repeat="serie in minhasSeries">
 							
 							<h3>{{serie.Title}}</h3>
-							<a data-toggle="modal" data-target="#perfilModal"><img src={{serie.Poster}}/></a>
+							<a href="#" ><img data-toggle="modal" data-target="#perfilModal{{$index}}" src="{{serie.Poster}}"/></a>
 							 <button type="button" class="btn btn-info btn-lg" ng-click="removeSeriePerfil(serie)" data-target="#myModal">Remover</button> 
 							 
 						</div>
@@ -158,24 +158,26 @@
 		</div>
 	</div>
 
-	<!-- Modal -->
-						<div class="modal fade" id="perfilModal" role="dialog">
+<!-- Modal -->
+						<div class="modal fade" id="#perfilModal{{$index}}" role="dialog">
 							<div class="modal-dialog">
 
 								<!-- Modal content-->
 								<div class="modal-content">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal">&times;</button>
-										<h4 class="modal-title">informações</h4>
+										<h4 class="modal-title">Séries encontradas</h4>
 									</div>
 									<div class="modal-body">
-										<div  ng-repeat="serie in series">
+										
 											<h3>{{serie.Title}}</h3>
 
 											 <img class="img" src="{{serie.Poster}}" /> 
-										
+										<!-- 	<h3>
+												<button type="button" class="btn btn-info btn-lg" ng-click="addSerieWatch(serie)"  data-target="#myModal">Watchlist</button>
+												<button type="button" class="btn btn-info btn-lg" ng-click="addSeriePerfil(serie)" data-target="#myModal">Perfil</button> 
+											</h3> -->
 
-										</div>
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -184,7 +186,7 @@
 
 							</div>
 						</div>
-				
+
 
 
 

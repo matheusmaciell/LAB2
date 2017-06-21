@@ -36,12 +36,18 @@ angular.module("listaSeries").controller("listaSeriesCtrl", function ($scope,$ht
 		return false;
 	}
 	$scope.addSerieWatch = function(serie){
-		if($scope.verificaArray(serie,$scope.watchlist ) & $scope.verificaArray(serie,$scope.minhasSeries)){
-
+		if($scope.verificaArray(serie,$scope.watchlist)){
 			alert("série já pertence ao seu watchlist");
+		}else if ($scope.verificaArray(serie,$scope.minhasSeries)){ 
+			alert("série já pertence ao seu perfil");
+
 		}else{
-			$scope.watchlist.push(serie);
+
+		 
+	 
+		$scope.watchlist.push(serie);
 		}
+		
 	}
 
 	$scope.addSeriePerfil = function(serie){
