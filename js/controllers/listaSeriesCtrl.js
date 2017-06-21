@@ -51,13 +51,23 @@ angular.module("listaSeries").controller("listaSeriesCtrl", function ($scope,$ht
 		}else{
 			$scope.minhasSeries.push(serie);
 		}
-		$scope.removeSerie(serie,$scope.watchlist);
+		$scope.removeSerieWatchlist(serie);
 	}
+	$scope.removeSerieWatchlist = function(serie){
+		for (var i = $scope.watchlist.length - 1; i >= 0; i--) {
+			if($scope.watchlist[i].Title == serie.Title){
+				$scope.watchlist.splice(i, 1);
+				
+			}
+		}
+	}	
 
-	$scope.removeSerie = function(serie,array){
-		for (var i = array.length - 1; i >= 0; i--) {
-			if(array[i].Title == serie.Title){
-				array.splice(i, 1);
+
+
+	$scope.removeSeriePerfil = function(serie){
+		for (var i = $scope.minhasSeries.length - 1; i >= 0; i--) {
+			if($scope.minhasSeries[i].Title == serie.Title){
+				$scope.minhasSeries.splice(i, 1);
 				
 			}
 		}
