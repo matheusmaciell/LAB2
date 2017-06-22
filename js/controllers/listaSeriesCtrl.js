@@ -21,11 +21,12 @@ angular.module("listaSeries").controller("listaSeriesCtrl", function ($scope,$ht
 
 
 	$scope.buscaInfoSerie = function(key){
-		$http.get("https://omdbapi.com/?i=" + key + "apikey=93330d3c").then(function(response) {
+		//http://www.omdbapi.com/?i=tt0944947&apikey=93330d3c
+		$http.get("https://omdbapi.com/?i=" + key + "&apikey=93330d3c").then(function(response) {
 			console.log(response.data);
-				console.log("ENTROU UI");
-				$scope.idSerieBuscada = response.data;
-
+				
+			$scope.idSerieBuscada = response.data;
+			console.log($scope.idSerieBuscada);
 			
 			});
 
@@ -74,8 +75,17 @@ angular.module("listaSeries").controller("listaSeriesCtrl", function ($scope,$ht
 	}	
 
 
+	$scope.confirmaExclusao = function(serie) {
+    	var confirmacao = confirm("Deseja excluir " + serie.Title + "do seu perfil?");
+
+    	if (confirmacao) {
+    		$scope.removeSeriePerfil(serie);
+    	} 
+}
 
 	$scope.removeSeriePerfil = function(serie){
+
+
 		for (var i = $scope.minhasSeries.length - 1; i >= 0; i--) {
 			if($scope.minhasSeries[i].Title == serie.Title){
 				$scope.minhasSeries.splice(i, 1);
