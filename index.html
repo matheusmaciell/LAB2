@@ -16,7 +16,7 @@
 	<script src="js/controllers/listaSeriesCtrl.js"></script>
 
 </head>
-<body ng-controller="listaSeriesCtrl">
+<body ng-controller="listaSeriesCtrl" bgcolor="#000000">
 
 
 
@@ -35,9 +35,15 @@
        
        <div class="form-group">
    		
-    <input type="text" class="form-control" ng-model="nomeSerie" placeholder="Nome">
-  	   </div>
-  	   <button type="submit" class="form-control" data-toggle="modal" ng-click="pesquisarSerie(nomeSerie)" data-target="#myModal" ng-disabled="!nomeSerie">buscar</button>
+   <form> 
+   <div class="input-group"> 
+   		<input type="text" class="form-control" ng-model="nomeSerie" placeholder="Nome"> 
+   <div class="input-group-btn"> 
+   <button class="btn btn-default" type="submit" data-toggle="modal" ng-click="pesquisarSerie(nomeSerie)" data-target="#myModal" ng-disabled="!nomeSerie">
+    <i class="glyphicon glyphicon-search"></i> </button> 
+    </div> 
+    </div> 
+    </form>
 
   	   <!-- Modal -->
 						<div class="modal fade" id="myModal" role="dialog">
@@ -105,6 +111,7 @@
 
 										<h3>classificação etária:</h3>
 										<h5>{{idSerieBuscada.Rated}}</h5>
+										<input type="text" class="form-control" ng-model="nomeSerie" placeholder="Nome"> 
 
 									</div>
 									<div class="modal-footer">
