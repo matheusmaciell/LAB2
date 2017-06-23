@@ -26,7 +26,7 @@
 
   <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-    <li><a data-toggle="tab" href="#Watchlist">Watchlist</a></li>
+    <li><a  class="active" data-toggle="tab" href="#Watchlist">Watchlist</a></li>
     
   </ul>
 
@@ -76,8 +76,14 @@
 						</div>
 
 
-						<div class="tab-content clearfix">
-					<div class="tab-pane active" id="3">
+						
+
+
+
+    </div>
+
+    	<div class="tab-content clearfix">
+					<div class="tab-pane active" id="home">
 					
 						<div  ng-repeat="serie in minhasSeries" class="col-sm-6 col-md-4">
 							
@@ -127,11 +133,7 @@
 
 
 					</div>
-				</div>	
-
-
-
-    </div>
+				</div>
     <div id="Watchlist" class="tab-pane fade">
       <div  ng-repeat="serie in watchlist">
 							

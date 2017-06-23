@@ -1,9 +1,11 @@
-angular.module("listaSeries").controller("listaSeriesCtrl", function ($scope,$http,$filter) {
+
+angular.module("listaSeries").controller("listaSeriesCtrl", function ($scope,$http,$mdSidenav) {
 	$scope.app = "Lista De Séries";
 	$scope.series = [];
 	$scope.minhasSeries = [];
 	$scope.watchlist = [];
 	$scope.idSerieBuscada = [];
+	$scope.toggleLeft = buildToggler('left');
 
 	$scope.pesquisarSerie = function(serie){
 		$http.get("https://omdbapi.com/?s=" + serie + "&apikey=93330d3c&type=series").then(function(response) {
@@ -18,7 +20,11 @@ angular.module("listaSeries").controller("listaSeriesCtrl", function ($scope,$ht
 
 	});
 	}	
-
+	 function buildToggler(componentId) {
+      return function() {
+        $mdSidenav(componentId).toggle();
+      };
+    }
 
 	$scope.buscaInfoSerie = function(key){
 		//http://www.omdbapi.com/?i=tt0944947&apikey=93330d3c
