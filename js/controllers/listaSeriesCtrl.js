@@ -4,8 +4,16 @@ angular.module("listaSeries").controller("listaSeriesCtrl", function ($scope,$ht
 	$scope.series = [];
 	$scope.minhasSeries = [];
 	$scope.watchlist = [];
-	$scope.idSerieBuscada = [];
+	$scope.idSerieBuscada = {};
 	$scope.toggleLeft = buildToggler('left');
+	$scope.items = [1, 2, 3, 4, 5, 6, 7,8,9,10];
+    $scope.selectedItem;
+    $scope.getSelectedText = function() {
+        
+          return  $scope.selectedItem;
+       
+        
+      };
 
 	$scope.pesquisarSerie = function(serie){
 		$http.get("https://omdbapi.com/?s=" + serie + "&apikey=93330d3c&type=series").then(function(response) {
@@ -27,7 +35,7 @@ angular.module("listaSeries").controller("listaSeriesCtrl", function ($scope,$ht
     }
 
 	$scope.buscaInfoSerie = function(key){
-		//http://www.omdbapi.com/?i=tt0944947&apikey=93330d3c
+		
 		$http.get("https://omdbapi.com/?i=" + key + "&apikey=93330d3c").then(function(response) {
 			console.log(response.data);
 				
@@ -101,5 +109,15 @@ angular.module("listaSeries").controller("listaSeriesCtrl", function ($scope,$ht
 	}	
 
 
+	
+
+  
+
+  
+
+
+
+  
+  
 
 });

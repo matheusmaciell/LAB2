@@ -2,149 +2,229 @@
 <html ng-app=listaSeries>
 <head>
 	<title>Organizador de séries</title>
-	<meta charset="utf-8">
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://code.jquery.com/jquery.min.js"></script>
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	
-	<link rel="stylesheet" type="text/css" href="css/app.css">
 
-	<script src="lib/angular.min.js"></script>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width" />
+	<link rel="stylesheet" type="text/css" href="lib/angular/angular-material.min.css">
+	<link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/app.css">
+</head>
+<body ng-controller="listaSeriesCtrl">
+
+	<md-card>
+
+		<div ng-cloak>
+			<md-content>
+				<md-tabs md-dynamic-height md-border-bottom>
+
+					<md-tab label="Pagina inicial">
+
+						<form> 
+							<div class="input-group"> 
+								<input type="text" class="form-control" ng-model="nomeSerie" placeholder="Nome"> 
+								<div class="input-group-btn"> 
+									<button class="btn btn-default" type="submit" data-toggle="modal" ng-click="pesquisarSerie(nomeSerie)"  ng-disabled="!nomeSerie">
+										<i class="glyphicon glyphicon-search"></i> </button> 
+									</div> 
+								</div> 
+							</form>
+
+
+							<div  ng-repeat="serie in series" class="col-sm-6 col-md-4">
+
+
+
+								<div  layout="column" style="height: 700px;" >
+
+									<section layout="row" flex>
+
+										
+
+										<md-content flex layout-padding>
+
+											<div layout="column" layout-align="top center">
+
+
+												<div>
+
+
+													<a href="#informacoes" > <img data-toggle="modal"  src="{{serie.Poster}}" ng-click = "toggleLeft();buscaInfoSerie(serie.imdbID);"/></a>
+													<h3>
+														<button type="button" class="btn btn-info btn-lg" ng-click="addSerieWatch(serie)"  >Watchlist</button>
+														<button type="button" class="btn btn-info btn-lg" ng-click="addSeriePerfil(serie)" >Perfil</button> 
+													</h3>
+
+												</div>
+
+											</div>
+
+										</md-content>
+
+									</section>
+
+								</div>
+
+
+
+
+
+
+							</div>
+
+
+							
+
+
+						</md-tab>
+
+
+						<md-tab label="Perfil">
+
+							<div  ng-repeat="serie in minhasSeries" class="col-sm-6 col-md-4">
+
+
+
+								<div  layout="column" style="height: 700px;" >
+
+									<section layout="row" flex>
+
+
+
+										<md-content flex layout-padding>
+
+											<div layout="column" layout-align="top center">
+
+
+												<div>
+
+
+													<a href="#informacoes" ><img data-toggle="modal"  src="{{serie.Poster}}" ng-click = "toggleLeft();buscaInfoSerie(serie.imdbID);"/></a>
+
+												</div>
+
+											</div>
+
+										</md-content>
+
+									</section>
+
+								</div>
+
+
+
+
+
+
+							</div>
+
+
+
+						</md-tab>
+
+						<md-tab label="Watchlist" >
+							<div  ng-repeat="serie in watchlist" class="col-sm-6 col-md-4">
+
+
+
+								<div  layout="column" style="height: 700px;" >
+
+									<section layout="row" flex>
+
+										
+
+										<md-content flex layout-padding>
+
+											<div layout="column" layout-align="top center">
+
+
+												<div>
+
+
+													<a href="#informacoes" > <img data-toggle="modal"  src="{{serie.Poster}}" ng-click = "toggleLeft();buscaInfoSerie(serie.imdbID);"/></a>
+													<h3>
+														<button type="button" class="btn btn-info btn-lg" ng-click="addSeriePerfil(serie)">Perfil</button>
+														
+													</h3>
+
+												</div>
+
+											</div>
+
+										</md-content>
+
+									</section>
+
+								</div>
+							</div>
+
+
+
+						</md-tab>
+					</md-tabs>
+
+				</md-content>
+			</div>
+		</md-card>
+		<div id="informacoes">
+			<md-sidenav class="md-sidenav-left" md-component-id="left"
+			md-disable-backdrop md-whiteframe="4">
+
+			<md-toolbar class="md-theme-indigo">
+				<h1 class="md-toolbar-tools">informações da séries</h1>
+			</md-toolbar>
+
+			<md-content class="dialog-demo-content" layout="row" layout-wrap layout-margin layout-align="center">
+				<p>
+
+					<h3>{{idSerieBuscada.Title}}</h3>
+					<img class="imagem" src="{{idSerieBuscada.Poster}}" /> 
+
+					<h3>sinopse:</h3>
+					<h4>{{idSerieBuscada.Plot}}</h4>
+
+					<h3>média do IMDb:</h3>
+					<h4>{{idSerieBuscada.imdbRating}}</h4>
+
+					<h3>classificação etária:</h3>
+					<h4>{{idSerieBuscada.Rated}}</h4>
+
+					<div class="md-padding">
+						<div>
+							<h3 class="md-title">Sua nota para a série</h3>
+							<div layout="row">
+								<md-input-container>
+									
+									<md-select ng-model="selectedItem" md-selected-text="getSelectedText()">
+										<md-optgroup label="items">
+											<md-option ng-value="item" ng-repeat="item in items"> {{item}}</md-option>
+										</md-optgroup>
+									</md-select>
+								</md-input-container>
+							</div>
+						</div>
+					</div>
+
+				</p>
+				<md-button ng-click="toggleLeft()" class="md-accent">
+					Fechar
+				</md-button>
+			</md-content>
+
+		</md-sidenav>
+
+	</div>
+
+
+
+
+
+	<!-- colocados no fim do documento para carregamento mais rapido da pagina -->
+	<script src="lib/angular/angular.min.js"></script>
+	<script src="lib/angular/angular-material.min.js"></script>
+	<script src="lib/angular/angular-animate.min.js"></script>
+	<script src="lib/angular/angular-aria.min.js"></script>
+	<script src="lib/angular/angular-messages.min.js"></script>
 	<script src="js/app.js"></script>
 	<script src="js/controllers/listaSeriesCtrl.js"></script>
-
-</head>
-<body ng-controller="listaSeriesCtrl" bgcolor="#000000">
-
-
-
-
-<div class="container">
- 
-
-  <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-    <li><a  class="active" data-toggle="tab" href="#Watchlist">Watchlist</a></li>
-    
-  </ul>
-
-  <div class="tab-content">
-    <div id="home" class="tab-pane fade in active">
-       
-       <div class="form-group">
-   		
-   <form> 
-   <div class="input-group"> 
-   		<input type="text" class="form-control" ng-model="nomeSerie" placeholder="Nome"> 
-   <div class="input-group-btn"> 
-   <button class="btn btn-default" type="submit" data-toggle="modal" ng-click="pesquisarSerie(nomeSerie)" data-target="#myModal" ng-disabled="!nomeSerie">
-    <i class="glyphicon glyphicon-search"></i> </button> 
-    </div> 
-    </div> 
-    </form>
-
-  	   <!-- Modal -->
-						<div class="modal fade" id="myModal" role="dialog">
-							<div class="modal-dialog">
-
-								<!-- Modal content-->
-								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal">&times;</button>
-										<h4 class="modal-title">Séries encontradas</h4>
-									</div>
-									<div class="modal-body">
-										<div  ng-repeat="serie in series">
-											<h3>{{serie.Title}}</h3>
-
-											 <img class="imagem" src="{{serie.Poster}}" /> 
-											<h3>
-												<button type="button" class="btn btn-info btn-lg" ng-click="addSerieWatch(serie)"  data-target="#myModal">Watchlist</button>
-												<button type="button" class="btn btn-info btn-lg" ng-click="addSeriePerfil(serie)" data-target="#myModal">Perfil</button> 
-											</h3>
-
-										</div>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-									</div>
-								</div>
-
-							</div>
-						</div>
-
-
-						
-
-
-
-    </div>
-
-    	<div class="tab-content clearfix">
-					<div class="tab-pane active" id="home">
-					
-						<div  ng-repeat="serie in minhasSeries" class="col-sm-6 col-md-4">
-							
-							<h3>{{serie.Title}}</h3>
-							<a href="#" ><img data-toggle="modal" data-target="#perfilModal" src="{{serie.Poster}}" ng-click = "buscaInfoSerie(serie.imdbID)"/></a>
-							 <button type="button" class="btn btn-info btn-lg" ng-click="confirmaExclusao(serie)" data-target="#myModal">Remover</button> 
-
-							
-
-
-			<!-- Modal -->
-						<div class="modal fade" id="perfilModal" role="dialog">
-							<div class="modal-dialog">
-
-								<!-- Modal content-->
-								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal">&times;</button>
-										<h4 class="modal-title"> informações da séries </h4>
-									</div>
-									<div class="modal-body">
-										
-										<h3>{{serie.Title}}</h3>
-										<img class="imagem" src="{{serie.Poster}}" /> 
-									 	
-									 	<h3>sinopse:</h3>
-										<h5>{{idSerieBuscada.Plot}}</h5>
-										
-										<h3>média do IMDb:</h3>
-										<h5>{{idSerieBuscada.imdbRating}}</h5>
-
-										<h3>classificação etária:</h3>
-										<h5>{{idSerieBuscada.Rated}}</h5>
-										<input type="text" class="form-control" ng-model="nomeSerie" placeholder="Nome"> 
-
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-									</div>
-								</div>
-
-							</div>
-						</div>
-
-						</div>
-						
-
-
-					</div>
-				</div>
-    <div id="Watchlist" class="tab-pane fade">
-      <div  ng-repeat="serie in watchlist">
-							
-							<h3>{{serie.Title}}</h3>
-							 <img class="img" src="{{serie.Poster}}" /> 
-
-							<button type="button" class="btn btn-info btn-lg" ng-click="addSeriePerfil(serie)" data-target="#myModal">Perfil</button> 
-						</div>
-
-    </div>
-    
-    
-  </div>
-</div>
+</body>
+</html>
