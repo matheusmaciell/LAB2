@@ -11,6 +11,8 @@
 </head>
 <body ng-controller="listaSeriesCtrl">
 
+
+
 	<md-card>
 
 		<div ng-cloak>
@@ -98,8 +100,9 @@
 												<div>
 
 
-													<a href="#informacoes" ><img data-toggle="modal"  src="{{serie.Poster}}" ng-click = "toggleLeft();buscaInfoSerie(serie.imdbID);"/></a>
-
+													<a href="#informacoes" ><img data-toggle="modal"  src="{{serie.Poster}}" ng-click = "toggleLeft();buscaInfoSerie(serie.imdbID);"/>
+													<button type="button" class="btn btn-info btn-lg" ng-click="removeSeriePerfil(serie)"  >remover</button>
+													</a>
 												</div>
 
 											</div>
@@ -121,6 +124,7 @@
 
 						</md-tab>
 
+
 						<md-tab label="Watchlist" >
 							<div  ng-repeat="serie in watchlist" class="col-sm-6 col-md-4">
 
@@ -140,7 +144,7 @@
 												<div>
 
 
-													<a href="#informacoes" > <img data-toggle="modal"  src="{{serie.Poster}}" ng-click = "toggleLeft();buscaInfoSerie(serie.imdbID);"/></a>
+													<a href="#informacoes" > <img src="{{serie.Poster}}" ng-click = "toggleLeft();buscaInfoSerie(serie.imdbID);"/></a>
 													<h3>
 														<button type="button" class="btn btn-info btn-lg" ng-click="addSeriePerfil(serie)">Perfil</button>
 														
@@ -188,21 +192,38 @@
 					<h3>classificação etária:</h3>
 					<h4>{{idSerieBuscada.Rated}}</h4>
 
-					<div class="md-padding">
-						<div>
-							<h3 class="md-title">Sua nota para a série</h3>
-							<div layout="row">
-								<md-input-container>
+
+
+					<div ng-if="pertencePerfil(idSerieBuscada)">
+					
+					<h3>Sua nota:</h3>
+					<h4>{{serieDoPerfil.nota}}</h4>
+
+					<div class="input-group"> 
+								<input type="text" class="form-control" ng-model="notaSerie" placeholder="Nota"> 
+								<div class="input-group-btn"> 
+									<button class="btn btn-default" type="submit"  ng-click="addNota(idSerieBuscada,notaSerie)" ng-disabled="!notaSerie">
+										<i class="glyphicon glyphicon-circle-arrow-right"></i> </button> 
+									</div> 
+								</div>
+
+
+					<h3>Episódio assistido:</h3>
+					<h4>{{serieDoPerfil.episodio}}</h4>	
+					<div class="input-group"> 
+								<input type="text" class="form-control" ng-model="numeroEp" placeholder="Episódio"> 
+								<div class="input-group-btn"> 
+									<button class="btn btn-default" type="submit" ng-click="addEpisodio(idSerieBuscada,numeroEp)"  ng-disabled="!numeroEp">
+										<i class="glyphicon glyphicon-circle-arrow-right"></i> </button> 
+									</div> 
+								</div> 
+					
+			
 									
-									<md-select ng-model="selectedItem" md-selected-text="getSelectedText()">
-										<md-optgroup label="items">
-											<md-option ng-value="item" ng-repeat="item in items"> {{item}}</md-option>
-										</md-optgroup>
-									</md-select>
-								</md-input-container>
-							</div>
-						</div>
+
+					<hr>
 					</div>
+					
 
 				</p>
 				<md-button ng-click="toggleLeft()" class="md-accent">
@@ -213,6 +234,8 @@
 		</md-sidenav>
 
 	</div>
+
+
 
 
 

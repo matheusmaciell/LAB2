@@ -6,14 +6,9 @@ angular.module("listaSeries").controller("listaSeriesCtrl", function ($scope,$ht
 	$scope.watchlist = [];
 	$scope.idSerieBuscada = {};
 	$scope.toggleLeft = buildToggler('left');
-	$scope.items = [1, 2, 3, 4, 5, 6, 7,8,9,10];
-    $scope.selectedItem;
-    $scope.getSelectedText = function() {
-        
-          return  $scope.selectedItem;
-       
-        
-      };
+	$scope.notasSeries = [];
+	$scope.serieDoPerfil = {};
+
 
 	$scope.pesquisarSerie = function(serie){
 		$http.get("https://omdbapi.com/?s=" + serie + "&apikey=93330d3c&type=series").then(function(response) {
@@ -36,14 +31,55 @@ angular.module("listaSeries").controller("listaSeriesCtrl", function ($scope,$ht
 
 	$scope.buscaInfoSerie = function(key){
 		
+
 		$http.get("https://omdbapi.com/?i=" + key + "&apikey=93330d3c").then(function(response) {
-			console.log(response.data);
+			
 				
 			$scope.idSerieBuscada = response.data;
-			console.log($scope.idSerieBuscada);
 			
+			$scope.mudaSerieDaVez(response.data);
 			});
 
+	}
+
+	$scope.mudaSerieDaVez = function(serie){
+		for (var i = $scope.notasSeries.length - 1; i >= 0; i--) {
+			if($scope.notasSeries[i].serie.Title == serie.Title){
+				$scope.serieDoPerfil = $scope.notasSeries[i];
+				
+			}
+		}
+	}
+
+
+	$scope.addNota = function(serie,notaSerie){
+		for (var i = $scope.notasSeries.length - 1; i >= 0; i--) {
+			if($scope.notasSeries[i].serie.Title == serie.Title){
+				$scope.notasSeries[i].nota = notaSerie;
+				
+			}
+		}
+		delete $scope.notaSerie;
+
+	}
+	$scope.addEpisodio = function(serie,ep){
+		for (var i = $scope.notasSeries.length - 1; i >= 0; i--) {
+			if($scope.notasSeries[i].serie.Title == serie.Title){
+				$scope.notasSeries[i].episodio = ep;
+				
+			}
+		}
+		console.log($scope.notasSeries);	
+	}
+
+	$scope.pertencePerfil = function(serie){
+		for (var i = $scope.notasSeries.length - 1; i >= 0; i--) {
+			if($scope.notasSeries[i].serie.Title == serie.Title){
+				return true;
+				
+			}
+		}
+		return false;
 	}
 
 	$scope.verificaArray = function(serie,array){
@@ -76,6 +112,7 @@ angular.module("listaSeries").controller("listaSeriesCtrl", function ($scope,$ht
 			alert("série já pertence ao seu perfil");
 		}else{
 			$scope.minhasSeries.push(serie);
+			$scope.notasSeries.push({serie,"nota":"","episodio":""});
 		}
 		$scope.removeSerieWatchlist(serie);
 	}
@@ -103,12 +140,19 @@ angular.module("listaSeries").controller("listaSeriesCtrl", function ($scope,$ht
 		for (var i = $scope.minhasSeries.length - 1; i >= 0; i--) {
 			if($scope.minhasSeries[i].Title == serie.Title){
 				$scope.minhasSeries.splice(i, 1);
-				
+				$scope.removerNotas(serie);
 			}
 		}
 	}	
 
-
+	$scope.removerNotas = function(serie){
+		for (var i = $scope.notasSeries.length - 1; i >= 0; i--) {
+			if($scope.notasSeries[i].serie.Title == serie.Title){
+				$scope.notasSeries.splice(i, 1);
+				
+			}
+		}
+	}
 	
 
   
