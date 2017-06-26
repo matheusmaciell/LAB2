@@ -8,6 +8,18 @@
 	<link rel="stylesheet" type="text/css" href="lib/angular/angular-material.min.css">
 	<link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/app.css">
+
+
+
+	<script src="lib/angular/angular.min.js"></script>
+	<script src="lib/angular/angular-material.min.js"></script>
+	<script src="lib/angular/angular-animate.min.js"></script>
+	<script src="lib/angular/angular-aria.min.js"></script>
+	<script src="lib/angular/angular-messages.min.js"></script>
+	<script src="js/app.js"></script>
+	<script src="js/controllers/listaSeriesCtrl.js"></script>
+
+
 </head>
 <body ng-controller="listaSeriesCtrl">
 
@@ -23,9 +35,9 @@
 
 						<form> 
 							<div class="input-group"> 
-								<input type="text" class="form-control" ng-model="nomeSerie" placeholder="Nome"> 
+								<input type="text" class="form-control"   ng-model="nomeSerie" id="nomeSerie" placeholder="Nome"> 
 								<div class="input-group-btn"> 
-									<button class="btn btn-default" type="submit" data-toggle="modal" ng-click="pesquisarSerie(nomeSerie)"  ng-disabled="!nomeSerie">
+									<button class="btn btn-default" type="submit"  ng-click="pesquisarSerie(nomeSerie)"  ng-disabled="!nomeSerie">
 										<i class="glyphicon glyphicon-search"></i> </button> 
 									</div> 
 								</div> 
@@ -101,7 +113,7 @@
 
 
 													<a href="#informacoes" ><img data-toggle="modal"  src="{{serie.Poster}}" ng-click = "toggleLeft();buscaInfoSerie(serie.imdbID);"/>
-													<button type="button" class="btn btn-info btn-lg" ng-click="removeSeriePerfil(serie)"  >remover</button>
+														<button type="button" class="btn btn-info btn-lg" ng-click="confirmaExclusao(serie)"  >remover</button>
 													</a>
 												</div>
 
@@ -195,59 +207,54 @@
 
 
 					<div ng-if="pertencePerfil(idSerieBuscada)">
-					
-					<h3>Sua nota:</h3>
-					<h4>{{serieDoPerfil.nota}}</h4>
 
-					<div class="input-group"> 
-								<input type="text" class="form-control" ng-model="notaSerie" placeholder="Nota"> 
-								<div class="input-group-btn"> 
-									<button class="btn btn-default" type="submit"  ng-click="addNota(idSerieBuscada,notaSerie)" ng-disabled="!notaSerie">
-										<i class="glyphicon glyphicon-circle-arrow-right"></i> </button> 
-									</div> 
-								</div>
+						<h3>Sua nota:</h3>
+						<h4>{{serieDoPerfil.nota}}</h4>
+						<form>
+						<div class="input-group"> 
+							<input type="text" class="form-control" ng-model="notaSerie" id="notaSerie" placeholder="Nota"> 
+							<div class="input-group-btn"> 
+								<button class="btn btn-default" type="submit"  ng-click="addNota(idSerieBuscada,notaSerie)" ng-disabled="!notaSerie">
+									<i class="glyphicon glyphicon-circle-arrow-right"></i> </button> 
+								</div> 
+							</div>
+						</form>
 
+							<h3>Episódio assistido:</h3>
+							<h4>{{serieDoPerfil.episodio}}</h4>	
 
-					<h3>Episódio assistido:</h3>
-					<h4>{{serieDoPerfil.episodio}}</h4>	
-					<div class="input-group"> 
-								<input type="text" class="form-control" ng-model="numeroEp" placeholder="Episódio"> 
+						<form>	
+							<div class="input-group"> 
+								<input type="text" class="form-control" ng-model="numeroEp"  id="numeroEp" placeholder="Episódio"> 
 								<div class="input-group-btn"> 
 									<button class="btn btn-default" type="submit" ng-click="addEpisodio(idSerieBuscada,numeroEp)"  ng-disabled="!numeroEp">
 										<i class="glyphicon glyphicon-circle-arrow-right"></i> </button> 
 									</div> 
 								</div> 
-					
+						</form>		
+
+
+
+								<hr>
+							</div>
+
+
+						</p>
+						<md-button ng-click="toggleLeft()" class="md-accent">
+							Fechar
+						</md-button>
+					</md-content>
+
+				</md-sidenav>
+
+			</div>
+
+
+
+
+
+
+
 			
-									
-
-					<hr>
-					</div>
-					
-
-				</p>
-				<md-button ng-click="toggleLeft()" class="md-accent">
-					Fechar
-				</md-button>
-			</md-content>
-
-		</md-sidenav>
-
-	</div>
-
-
-
-
-
-
-
-	<!-- colocados no fim do documento para carregamento mais rapido da pagina -->
-	<script src="lib/angular/angular.min.js"></script>
-	<script src="lib/angular/angular-material.min.js"></script>
-	<script src="lib/angular/angular-animate.min.js"></script>
-	<script src="lib/angular/angular-aria.min.js"></script>
-	<script src="lib/angular/angular-messages.min.js"></script>
-	<script src="js/app.js"></script>
-	<script src="js/controllers/listaSeriesCtrl.js"></script>
-</body>
-</html>
+		</body>
+		</html>

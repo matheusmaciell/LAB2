@@ -10,17 +10,17 @@ angular.module("listaSeries").controller("listaSeriesCtrl", function ($scope,$ht
 	$scope.serieDoPerfil = {};
 
 
-	$scope.pesquisarSerie = function(serie){
-		$http.get("https://omdbapi.com/?s=" + serie + "&apikey=93330d3c&type=series").then(function(response) {
+	$scope.pesquisarSerie = function(nomeSerie){
+		$http.get("https://omdbapi.com/?s=" + nomeSerie + "&apikey=93330d3c&type=series").then(function(response) {
 			if(response.data.Response == "True"){
 				$scope.series = response.data.Search;
 
-			delete $scope.serie;	
+				
 			}else{
 				alert("a série nao existe");
 			};
 
-
+			delete $scope.nomeSerie;
 	});
 	}	
 	 function buildToggler(componentId) {
@@ -62,14 +62,14 @@ angular.module("listaSeries").controller("listaSeriesCtrl", function ($scope,$ht
 		delete $scope.notaSerie;
 
 	}
-	$scope.addEpisodio = function(serie,ep){
+	$scope.addEpisodio = function(serie,numeroEp){
 		for (var i = $scope.notasSeries.length - 1; i >= 0; i--) {
 			if($scope.notasSeries[i].serie.Title == serie.Title){
-				$scope.notasSeries[i].episodio = ep;
+				$scope.notasSeries[i].episodio = numeroEp;
 				
 			}
 		}
-		console.log($scope.notasSeries);	
+			delete $scope.numeroEp;
 	}
 
 	$scope.pertencePerfil = function(serie){
@@ -84,7 +84,7 @@ angular.module("listaSeries").controller("listaSeriesCtrl", function ($scope,$ht
 
 	$scope.verificaArray = function(serie,array){
 		for (var i = array.length - 1; i >= 0; i--) {
-			if(array[i].Title == serie.Title){
+			if(array[i].imdbID == serie.imdbID){
 				return true;
 				
 			}
@@ -127,7 +127,7 @@ angular.module("listaSeries").controller("listaSeriesCtrl", function ($scope,$ht
 
 
 	$scope.confirmaExclusao = function(serie) {
-    	var confirmacao = confirm("Deseja excluir " + serie.Title + "do seu perfil?");
+    	var confirmacao = confirm("Deseja excluir " + serie.Title + " do seu perfil?");
 
     	if (confirmacao) {
     		$scope.removeSeriePerfil(serie);
